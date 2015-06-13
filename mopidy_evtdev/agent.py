@@ -130,6 +130,17 @@ class EvtDevAgent(object):
             else:
                 self.last_key_event = key_event
                 self.last_event = event
+        else:
+            # type 2 is abs_rel
+            if( event.type == 2 ):
+                if( event.value == 1 ):
+                    self.ecode_map[evdev.ecodes.KEY_VOLUMEUP]()
+                    self.last_key_event = None
+                    self.last_event = None
+                if( event.value == -1):
+                    self.ecode_map[evdev.ecodes.KEY_VOLUMEDOWN]()
+                    self.last_key_event = None
+                    self.last_event = None
 
     def _play_pause(self):
         state = self.core.playback.state.get()
